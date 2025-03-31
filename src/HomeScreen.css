@@ -1,0 +1,128 @@
+/* General Layout */
+.home-screen-container {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header Section */
+.header-section {
+  background-color: #2a6abf; /* Dark Blue */
+  color: white;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.header-title {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.header-subtitle {
+  font-size: 1.2rem;
+  margin-top: 10px;
+  color: #f3f4f6;
+}
+
+/* Cancer Care Guideline Section */
+.cancer-care-guidelines {
+  padding: 60px 20px;
+  text-align: center;
+  background-color: #f1f5f8;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.section-text {
+  font-size: 1.1rem;
+  margin-top: 20px;
+  color: #555;
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+/* Cancer Odds Section */
+.cancer-odds-section {
+  padding: 60px 20px;
+  text-align: center;
+  background-color: #ffffff;
+}
+
+.odds-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.odds-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 250px;
+}
+
+.odds-icon {
+  width: 80px;
+  height: 80px;
+}
+
+.odds-text {
+  font-size: 1rem;
+  color: #ff6347; /* Tomato color */
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+/* Our Projects Section */
+.our-projects {
+  padding: 60px 20px;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.projects-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.project-card {
+  background-color: #f4f7fb;
+  border-radius: 10px;
+  padding: 20px;
+  width: 280px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.project-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2a6abf;
+}
+
+.project-description {
+  font-size: 1rem;
+  color: #666;
+  margin-top: 15px;
+}
+
+.project-button {
+  background-color: #2a6abf;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.project-button:hover {
+  background-color: #1d4e8f;
+}

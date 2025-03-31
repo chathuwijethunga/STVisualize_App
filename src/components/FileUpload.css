@@ -1,0 +1,98 @@
+/* src/FileUpload.css */
+
+/* Basic container styling */
+.file-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f4f7fc;
+  padding: 20px;
+}
+
+/* Title styling */
+.file-upload-container h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Styling for the file input */
+input[type="file"] {
+  margin: 10px;
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Button styling */
+button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Display when upload is complete */
+.upload-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.upload-buttons button {
+  font-size: 1rem;
+  padding: 12px 24px;
+}
+
+/* Styling for the scatter plot and UMAP plot images */
+img {
+  margin-top: 20px;
+  max-width: 90%;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for scatter plot */
+#scatterplot-img {
+  margin-top: 20px;
+  max-width: 80%;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for UMAP plot */
+#umap-img {
+  margin-top: 20px;
+  max-width: 80%;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments for images */
+@media (max-width: 768px) {
+  .file-upload-container {
+    padding: 10px;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  .upload-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+}

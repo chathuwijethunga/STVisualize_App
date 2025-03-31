@@ -1,6 +1,6 @@
 /* General Layout */
 .home-screen-container {
-  font-family: "Arial", sans-serif;
+  font-family: "Public Sans", sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -9,19 +9,98 @@
 .header-section {
   background-color: #2a6abf; /* Dark Blue */
   color: white;
-  text-align: center;
-  padding: 50px 20px;
+  text-align: left;
+  padding: 10px 20px;
+  position: sticky; /* Make the header sticky */
+  top: 0; /* Stick to the top of the page */
+  z-index: 10; /* Ensure it stays on top of other content */
+  width: 100%; /* Full width */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for visibility */
+  display: flex;
 }
 
+/* Header Title and Subtitle */
 .header-title {
-  font-size: 3rem;
-  font-weight: bold;
+  font-size: 2.5rem;
+  font-family: "Gruppo", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: left;
 }
-
+.header-icon {
+  margin-right: 15px; /* Add some spacing between the icon and the text */
+  color: white;
+}
 .header-subtitle {
   font-size: 1.2rem;
-  margin-top: 10px;
+  margin-top: 1px;
   color: #f3f4f6;
+}
+
+/* Hero Section with Blurred Background */
+.hero-section {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  height: 100vh; /* Full height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Dark overlay to make text more readable */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.hero-button {
+  background-color: #ff5733; /* Button color */
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.hero-button:hover {
+  background-color: #d9463f; /* Darken on hover */
+}
+
+/* Optional: Blur the background image */
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  filter: blur(10px); /* Apply blur effect */
+  z-index: -1; /* Ensure the blur is behind the content */
 }
 
 /* Cancer Care Guideline Section */
@@ -32,17 +111,21 @@
 }
 
 .section-title {
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: 2.1rem;
+  font-weight: 300;
   color: #333;
+  text-align: left;
+  margin-left: 35px;
 }
 
 .section-text {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   margin-top: 20px;
-  color: #555;
-  max-width: 800px;
-  margin: 20px auto;
+  color: #5559;
+  /* max-width: 1000px; */
+  /* margin: 50px auto; */
+  margin-left: 35px;
+  text-align: left;
 }
 
 /* Cancer Odds Section */
@@ -63,21 +146,34 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 250px;
+  width: 450px;
+  height: 450px;
+  text-align: center;
+  background-color: #ffffff; /* White background */
+  border: 1px solid #d1d1d1; /* Grey border */
+  border-radius: 10px; /* Rounded corners */
+  padding: 20px; /* Padding inside the boxes */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add some shadow for better visibility */
 }
 
 .odds-icon {
-  width: 80px;
-  height: 80px;
+  width: 200px; /* Icon size */
+  height: 200px; /* Icon size */
+  margin-bottom: 20px; /* Space between the icon and the text */
+  box-shadow: none; /* Remove shadow from icons */
 }
 
 .odds-text {
-  font-size: 1rem;
-  color: #ff6347; /* Tomato color */
-  margin-top: 15px;
-  font-weight: bold;
+  font-size: 1.2rem;
+  color: #555;
+  font-weight: 200;
+  /* margin-top: 15px; */
 }
-
+.odds-number {
+  font-size: 2rem; /* Larger font size for the number */
+  color: rgb(233, 64, 84); /* Tomato color for emphasis */
+  font-weight: 300;
+}
 /* Our Projects Section */
 .our-projects {
   padding: 60px 20px;

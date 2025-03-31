@@ -5,7 +5,8 @@ import './HomeScreen.css';
 import icon1 from './assets/icon1.svg';
 import icon2 from './assets/icon2.png';
 import icon3 from './assets/icon3.png';
-
+import heroImage from './assets/Untitled.png';
+import { Ribbon } from 'lucide-react';
 
 function HomeScreen() {
   return (
@@ -13,9 +14,54 @@ function HomeScreen() {
       
       {/* Header Section */}
       <header className="header-section">
+        <Ribbon size={50} className="header-icon" />
         <h1 className="header-title">CancerTalks</h1>
-        <p className="header-subtitle">Bringing you the latest in Cancer Care & Research</p>
+        {/* <p className="header-subtitle">Bringing you the latest in Cancer Care & Research</p> */}
       </header>
+
+      {/* Hero Section with Blurred Background */}
+      <section className="hero-section" style={{ backgroundImage: `url(${heroImage})` }}>
+        <div className="hero-overlay">
+          <h1 className="hero-title">Together We Can Minimize Global Cancer Health Disparities</h1>
+          <p className="hero-subtitle">Our vision is to make evidence-based cancer care accessible to everyone</p>
+          {/* <button className="hero-button">Donate Today</button> */}
+        </div>
+      </section>
+
+      {/* Content Below Hero Section */}
+      <section className="cancer-odds-section">
+        {/* Your other content goes here */}
+      </section>
+
+      {/* Your Odds of Surviving Cancer Section */}
+      <section className="cancer-odds-section">
+        <h2 className="section-title">Your odds of surviving cancer shouldn’t depend on where you live or how much money you make.</h2>
+        <p className="section-text">
+          Let's build a world where equitable cancer care is the norm, not the exception. Sources: * World Health Organization / ** The Lancet Global Health
+        </p>
+
+        {/* Flexbox Container for Statistics */}
+        <div className="odds-container">
+          <div className="odds-item">
+            <img src={icon1} alt="Icon1" className="odds-icon" />
+            <p className="odds-text">
+              <span className="odds-number">1 in 5</span> people will develop cancer in their lifetime.
+            </p>
+          </div>
+          <div className="odds-item">
+            <img src={icon2} alt="Icon2" className="odds-icon" />
+            <p className="odds-text">
+              <span className="odds-number">1/3</span> of premature cancer deaths were treatable.
+            </p>
+          </div>
+          <div className="odds-item">
+            <img src={icon3} alt="Icon3" className="odds-icon" />
+            <p className="odds-text">
+              <span className="odds-number">70%</span> of cancer-related deaths are in low-and-middle-income countries.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Cancer Care Guideline Section */}
       <section className="cancer-care-guidelines">
@@ -25,30 +71,7 @@ function HomeScreen() {
         </p>
       </section>
 
-      {/* Your Odds of Surviving Cancer Section */}
-      <section className="cancer-odds-section">
-        <h2 className="section-title">Your odds of surviving cancer shouldn’t depend on where you live or how much money you make.</h2>
-        <p className="section-text">
-        Let's build a world where equitable cancer care is the norm, not the exception. Sources: * World Health Organization / ** The Lancet Global Health
-        </p>
-
-        {/* Flexbox Container for Statistics */}
-        <div className="odds-container">
-            <div className="odds-item">
-                <img src={icon1} alt="Icon1" className="odds-icon" />
-                <p className="odds-text">1 in 5 people will develop cancer in their lifetime.</p>
-            </div>
-            <div className="odds-item">
-                <img src={icon2} alt="Icon2" className="odds-icon" />
-                <p className="odds-text">1/3 of premature cancer deaths were treatable.</p>
-            </div>
-            <div className="odds-item">
-                <img src={icon3} alt="Icon3" className="odds-icon" />
-                <p className="odds-text">70% of cancer-related deaths are in low-and-middle-income countries.</p>
-            </div>
-        </div>
-
-      </section>
+      
 
       {/* Our Projects Section */}
       <section className="our-projects">

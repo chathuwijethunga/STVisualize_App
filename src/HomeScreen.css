@@ -7,7 +7,7 @@
 
 /* Header Section */
 .header-section {
-  background-color: #2a6abf; /* Dark Blue */
+  background-color: #0047ab; /* Dark Blue */
   color: white;
   text-align: left;
   padding: 10px 20px;
@@ -199,7 +199,7 @@
 .project-title {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #2a6abf;
+  color: #0047ab;
 }
 
 .project-description {
@@ -209,7 +209,7 @@
 }
 
 .project-button {
-  background-color: #2a6abf;
+  background-color: #0047ab;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -220,5 +220,5 @@
 }
 
 .project-button:hover {
-  background-color: #1d4e8f;
+  background-color: #0047ab;
 }

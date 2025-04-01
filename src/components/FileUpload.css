@@ -1,5 +1,3 @@
-/* src/FileUpload.css */
-
 /* Basic container styling */
 .file-upload-container {
   display: flex;
@@ -18,17 +16,80 @@
   margin-bottom: 20px;
 }
 
-/* Styling for the file input */
-input[type="file"] {
-  margin: 10px;
-  padding: 10px;
-  font-size: 1rem;
-  border: 2px solid #ddd;
-  border-radius: 5px;
-  cursor: pointer;
+/* Styling for the dropzone area */
+.dropzone {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Aligns content to the bottom */
+  align-items: center;
+  border: 2px dashed #0047ab;
+  border-radius: 10px;
+  width: 100%;
+  padding: 20px;
+  background-color: white;
 }
 
-/* Button styling */
+.dropzone p {
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  color: #555;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.odds-number {
+  font-size: 1rem; /* Larger font size for the number */
+  color: #0047ab;
+  font-weight: 400;
+}
+.file-format {
+  font-size: 0.4rem;
+  color: #555;
+  font-weight: 200;
+}
+
+/* Styling for the file preview after upload */
+.file-preview {
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.uploaded-file-box {
+  text-align: center;
+  background-color: white;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  max-width: 400px;
+  width: 100%;
+}
+
+.uploaded-file-box p {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0;
+  padding-bottom: 10px;
+}
+
+.uploaded-file-box button {
+  background-color: #dc3545;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.uploaded-file-box button:hover {
+  background-color: #c82333;
+}
+
 button {
   padding: 10px 20px;
   font-size: 1rem;
@@ -37,7 +98,7 @@ button {
   color: white;
   cursor: pointer;
   border-radius: 5px;
-  margin-top: 15px;
+  margin-top: 20px;
   transition: background-color 0.3s ease;
 }
 
@@ -45,7 +106,11 @@ button:hover {
   background-color: #0056b3;
 }
 
-/* Display when upload is complete */
+button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
 .upload-buttons {
   margin-top: 20px;
   display: flex;
@@ -55,44 +120,4 @@ button:hover {
 .upload-buttons button {
   font-size: 1rem;
   padding: 12px 24px;
-}
-
-/* Styling for the scatter plot and UMAP plot images */
-img {
-  margin-top: 20px;
-  max-width: 90%;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Styling for scatter plot */
-#scatterplot-img {
-  margin-top: 20px;
-  max-width: 80%;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Styling for UMAP plot */
-#umap-img {
-  margin-top: 20px;
-  max-width: 80%;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Responsive adjustments for images */
-@media (max-width: 768px) {
-  .file-upload-container {
-    padding: 10px;
-  }
-
-  img {
-    max-width: 100%;
-  }
-
-  .upload-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
 }

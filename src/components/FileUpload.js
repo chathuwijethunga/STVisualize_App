@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
 import './FileUpload.css';
 import { Upload } from 'lucide-react';
+// import image1 from '../assets/image1.png'
 
 function FileUpload() {
     const [file, setFile] = useState(null);
@@ -82,42 +83,49 @@ function FileUpload() {
     };
 
     return (
-        <div className="file-upload-container">
-            <h1>Upload File for Visualization</h1>
-            {!file ? (
-                <div className="dropzone" {...getRootProps()}>
-                    <input {...getInputProps()} onChange={handleFileChange} />
-                    <Upload />
-                    <p>
-                        <span className="odds-number">Click here</span> to upload your file or drag.
-                    </p>
-                    <p className="file-format">Supported Format: h5ad</p>
-                </div>
-            ) : (
-                <div className="file-preview">
-                    <div className="uploaded-file-box">
-                        <p>{file.name}</p>
-                        {/* Delete button after file is uploaded */}
-                        <button onClick={handleDelete}>Delete</button>
-                    </div>
-                </div>
-            )}
+        <div className='file-upload-page'>
+            <div className="file-upload-container">
+                <div className='upload-box'>
+                    <h1>Upload File for Visualization</h1>
+                    {!file ? (
+                        <div className="dropzone" {...getRootProps()}>
+                            <input {...getInputProps()} onChange={handleFileChange} />
+                            <Upload />
+                            <p>
+                                <span className="odds-number">Click here</span> to upload your file or drag.
+                            </p>
+                            <p className="file-format">Supported Format: h5ad</p>
+                        </div>
+                    ) : (
+                        <div className="file-preview">
+                            <div className="uploaded-file-box">
+                                <p>{file.name}</p>
+                                {/* Delete button after file is uploaded */}
+                                <button onClick={handleDelete}>Delete</button>
+                            </div>
+                        </div>
+                    )}
 
-            {/* Conditional rendering of upload button */}
-            {/* Only show the upload button if a file is selected and not uploaded */}
-            {!uploadComplete && file && !loading && (
-                <button onClick={handleSubmit}>
-                    {loading ? 'Uploading...' : 'Upload'}
-                </button>
-            )}
+                    {/* Conditional rendering of upload button */}
+                    {/* Only show the upload button if a file is selected and not uploaded */}
+                    {!uploadComplete && file && !loading && (
+                        <button onClick={handleSubmit}>
+                            {loading ? 'Uploading...' : 'Upload'}
+                        </button>
+                    )}
 
-            {uploadComplete && (
-                <div className="upload-buttons">
-                    {/* Navigating to Scatter Plot */}
-                    <button onClick={navigateToScatterPlot}>Go to Scatter Plot</button>
-                    <button onClick={navigateToUmap}>Go to UMAP Plot</button>
+                    {uploadComplete && (
+                        <div className="upload-buttons">
+                            {/* Navigating to Scatter Plot */}
+                            <button onClick={navigateToScatterPlot}>Go to Scatter Plot</button>
+                            <button onClick={navigateToUmap}>Go to UMAP Plot</button>
+                        </div>
+                    )}
                 </div>
-            )}
+                <div className="image-box">
+                    {/* <img src={image1} alt="Illustration" /> */}
+                </div>
+            </div>
         </div>
     );
 }

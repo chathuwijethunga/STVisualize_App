@@ -36,3 +36,20 @@
     transform: rotate(360deg);
   }
 }
+/* src/App.css */
+
+.app-container {
+  display: flex;
+}
+
+.main-content {
+  margin-left: 250px; /* Push the content to the right of the sidebar */
+  padding: 20px;
+  flex-grow: 1;
+  background-color: #f4f7fc;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #333;
+}

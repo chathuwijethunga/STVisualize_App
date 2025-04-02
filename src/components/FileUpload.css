@@ -1,19 +1,55 @@
-/* Basic container styling */
-.file-upload-container {
+/* Full Page Layout */
+.file-upload-page {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   min-height: 100vh;
-  background-color: #f4f7fc;
-  padding: 20px;
+  background-color: #0047ab;
+  padding: 10px;
 }
 
-/* Title styling */
-.file-upload-container h1 {
+/* Styling for the file upload container */
+.file-upload-container {
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  width: 80%; /* Adjust width as needed */
+  max-width: 1400px; /* Maximum width */
+  height: 80vh; /* Adjust the height to your preference */
+  background-color: #ffffff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  margin: 0 auto; /* Center the container */
+  overflow: hidden; /* To prevent the content from spilling */
+}
+
+/* Styling for the upload box */
+.upload-box {
+  width: 60%; /* Set the upload section to 60% width */
+  height: 100%; /* Ensure full height */
+  text-align: center;
+  padding: 30px;
+  box-sizing: border-box; /* Include padding in width/height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Styling for the image box */
+.image-box {
+  width: 40%; /* Set the image box to 40% width */
+  height: 100%; /* Set height to full container height */
+  background-image: url("../assets/image1.png");
+  background-size: cover; /* Make sure the image covers the whole box */
+  background-position: center; /* Keep the image centered */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  border-radius: 15px; /* Optional: Add rounded corners */
+}
+
+/* Other styling */
+h1 {
   font-size: 2rem;
   color: #333;
-  margin-bottom: 20px;
 }
 
 /* Styling for the dropzone area */
@@ -43,6 +79,7 @@
   color: #0047ab;
   font-weight: 400;
 }
+
 .file-format {
   font-size: 0.4rem;
   color: #555;
@@ -73,6 +110,7 @@
   font-weight: bold;
   margin: 0;
   padding-bottom: 10px;
+  border-radius: 5px;
 }
 
 .uploaded-file-box button {
@@ -104,6 +142,7 @@ button {
 
 button:hover {
   background-color: #0056b3;
+  border-radius: 5px;
 }
 
 button:disabled {
@@ -115,9 +154,12 @@ button:disabled {
   margin-top: 20px;
   display: flex;
   gap: 20px;
+  justify-content: center;
+  border-radius: 5px;
 }
 
 .upload-buttons button {
   font-size: 1rem;
   padding: 12px 24px;
+  border-radius: 5px;
 }

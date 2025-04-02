@@ -1,0 +1,67 @@
+/* src/Sidebar.css */
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #2a2a2a;
+  color: white;
+  padding-top: 20px;
+}
+
+.sidebar-logo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.sidebar-logo h2 {
+  font-size: 24px;
+  color: #fff;
+}
+
+.sidebar-menu {
+  list-style-type: none;
+  padding: 0;
+}
+
+.menu-item {
+  padding: 10px 20px;
+  border-bottom: 1px solid #444;
+}
+
+.menu-item a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  display: block;
+  padding: 10px;
+}
+
+.menu-item a:hover {
+  background-color: #575757;
+  color: #fff;
+}
+
+.sidebar .menu-item a.active {
+  background-color: #0047ab;
+}
+
+.sidebar .menu-item a:hover {
+  color: #fff;
+}
+/* In Sidebar.css */
+@media screen and (max-width: 768px) {
+  .sidebar {
+    width: 60px; /* Smaller width for mobile */
+  }
+
+  .sidebar .menu-item {
+    text-align: center;
+  }
+
+  .sidebar-logo {
+    display: none;
+  }
+}

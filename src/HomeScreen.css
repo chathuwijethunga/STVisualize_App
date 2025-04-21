@@ -7,10 +7,10 @@
 
 /* Header Section */
 .header-section {
-  background-color: #0047ab; /* Dark Blue */
+  background-color: rgb(13, 37, 71); /* Dark Blue */
   color: white;
   text-align: left;
-  padding: 10px 20px;
+  padding: 10px 30px;
   position: sticky; /* Make the header sticky */
   top: 0; /* Stick to the top of the page */
   z-index: 10; /* Ensure it stays on top of other content */
@@ -61,7 +61,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 20px;
+  padding: 40px;
 }
 
 .hero-title {
@@ -102,10 +102,12 @@
   filter: blur(10px); /* Apply blur effect */
   z-index: -1; /* Ensure the blur is behind the content */
 }
-
+.body {
+  margin: 0 130px; /* Adds margin of 50px to both the left and right sides */
+}
 /* Cancer Care Guideline Section */
 .cancer-care-guidelines {
-  padding: 60px 20px;
+  padding: 100px 20px;
   text-align: center;
   background-color: #f1f5f8;
 }
@@ -139,7 +141,7 @@
   display: flex;
   justify-content: center;
   gap: 30px;
-  margin-top: 40px;
+  margin-top: 60px;
 }
 
 .odds-item {
@@ -147,7 +149,7 @@
   flex-direction: column;
   align-items: center;
   width: 450px;
-  height: 450px;
+  height: 350px;
   text-align: center;
   background-color: #ffffff; /* White background */
   border: 1px solid #d1d1d1; /* Grey border */
@@ -199,7 +201,7 @@
 .project-title {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #0047ab;
+  color: rgb(13, 37, 71);
 }
 
 .project-description {
@@ -209,7 +211,7 @@
 }
 
 .project-button {
-  background-color: #0047ab;
+  background-color: rgb(13, 37, 71);
   color: white;
   padding: 10px 20px;
   border: none;
@@ -220,5 +222,5 @@
 }
 
 .project-button:hover {
-  background-color: #0047ab;
+  background-color: rgb(13, 37, 71);
 }

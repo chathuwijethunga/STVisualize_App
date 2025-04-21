@@ -2,8 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomeScreen from './HomeScreen';  // Import HomeScreen
 import FileUpload from './components/FileUpload';
-import ScatterPlotPage from './components/ScatterPlotPage';
 import UmapPage from './components/UmapPage';
+import Cancercare from './components/CancerCare';
+import MarkerPage from './components/MarkerPage';  
 
 function App() {
   return (
@@ -12,8 +13,9 @@ function App() {
         <Routes>
           <Route path="/" element={<HomeScreen />} />  {/* Home Screen Route */}
           <Route path="/file-upload" element={<FileUpload />} />  {/* File Upload Route */}
-          <Route path="/scatterplot" element={<ScatterPlotPage />} />  {/* Scatter Plot Page */}
           <Route path="/umap" element={<UmapPage />} />  {/* UMAP Page */}
+          <Route path="/care-guidelines" element={<Cancercare />} />
+          <Route path="/markers" element={<MarkerPage />} />  {/* New Route for Markers */}
         </Routes>
       </div>
     </Router>

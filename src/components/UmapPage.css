@@ -57,6 +57,12 @@
   border-radius: 10px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
+.plot-image-markers {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
 
 /* Header Styling */
 .header {
@@ -100,35 +106,4 @@
 .umap-page {
   font-family: Arial, sans-serif;
   text-align: center;
-}
-
-.plot-text {
-  font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.plot-image img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
-}
-
-button {
-  padding: 10px 20px;
-  background-color: #ff8c00;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #e07b00;
-}
-
-input[type="file"] {
-  margin-top: 10px;
 }

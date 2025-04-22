@@ -1,51 +1,43 @@
-import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import axios from 'axios';
-import './UmapPage.css';  // Import the CSS file
-import BgVideo from '../assets/background_video.mp4';  // Import the video file
+import React, { useEffect } from 'react'; // Removed useState
+import { useLocation, useNavigate } from 'react-router-dom'; // Import useNavigate
+// axios is not needed on this page anymore
+// import axios from 'axios';
+import './UmapPage.css'; // Import the CSS file
+import BgVideo from '../assets/background_video.mp4'; // Import the video file
 
 function UmapPage() {
-  const { state } = useLocation(); // Getting the passed state
-  const { scatterPlot, umapPlot } = state || {}; // Extracting images
-  const [file, setFile] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [markerPlotUrl, setMarkerPlotUrl] = useState(null);
-  const [error, setError] = useState(null);
+   // Getting the passed state from navigation
+  const { state } = useLocation();
+  const navigate = useNavigate(); // Hook for navigation
 
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  };
+  // **Access the state using the EXACT keys from the backend's JSON response**
+  const scatterPlotBase64 = state?.scatter_plot; // Use optional chaining and backend key
+  const umapPlotBase64 = state?.umap_plot;     // Use optional chaining and backend key
+  const markersPlotBase64 = state?.markers_plot; // Use optional chaining and backend key
 
-  const handleUpload = async () => {
-    if (!file) {
-      alert("Please select a file to upload.");
-      return;
+  // Check if data was received. If not, redirect back to upload page.
+  useEffect(() => {
+    // Check if state is empty or if none of the plot keys are present
+    if (!state || (!scatterPlotBase64 && !umapPlotBase64 && !markersPlotBase64)) {
+      console.warn("No plot data received. Redirecting to upload page.");
+      // Use replace: true to prevent going back to an empty UMAP page
+      navigate('/file-upload', { replace: true }); // *** Make sure '/file-upload' is your upload route ***
     }
+  }, [state, navigate, scatterPlotBase64, umapPlotBase64, markersPlotBase64]); // Add dependencies
 
-    const formData = new FormData();
-    formData.append("file", file);
-
-    setLoading(true);
-    setError(null);  // Reset error state before upload
-
-    try {
-      // Make the POST request to the backend for markers
-      const response = await axios.post('http://localhost:5000/markers', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-        responseType: 'blob',  // Expecting an image as a blob
-      });
-
-      // Create an object URL for the marker image
-      const markerPlotUrl = URL.createObjectURL(response.data);
-      setMarkerPlotUrl(markerPlotUrl);  // Set the URL for the marker plot
-    } catch (error) {
-      console.error('Error fetching marker plot:', error);
-      setError("Failed to load marker plot. Please try again.");
-    } finally {
-      setLoading(false);
+    // Show a loading/redirecting message if no data is available yet
+    if (!state || (!scatterPlotBase64 && !umapPlotBase64 && !markersPlotBase64)) {
+        return (
+            <div className="umap-page">
+                 <video autoPlay loop muted className="bg-vid">
+                    <source src={BgVideo} type="video/mp4" />
+                </video>
+                <div className="box-container">
+                    <p>Loading plot data or redirecting...</p>
+                </div>
+            </div>
+        );
     }
-  };
-
   return (
     <div className="umap-page">
       {/* Background Video */}
@@ -58,47 +50,64 @@ function UmapPage() {
         <h2>Navigation</h2>
         <ul>
           <li><a href="/">Home</a></li>
-          <li><a href="/file-upload">Back to Upload</a></li>
-          <li><a href="/markers">Markers Plot</a></li>
+          {/* Link back to the page where the file upload happens */}
+          <li><a href="/file-upload">Upload New File</a></li> {/* *** Make sure '/file-upload' is your upload route *** */}
+          {/* 'Markers Plot' link is redundant here */}
         </ul>
-      </div>
+       </div>
 
       {/* Content Area */}
-      <div className="box-container">
-        <div className="plot-text">
-          <h1>UMAP Plot</h1>
-        </div>
-        <div className="plot-image">
-          {umapPlot && <img src={umapPlot} alt="UMAP Plot" />}
+    <div className="box-container">
+
+        {/* Scatter Plot Section */}
+        <div className="plot-section">
+          <div className="plot-text">
+            <h1>Scatter Plot</h1>
+          </div>
+          <div className="plot-image">
+            {/* Check if data exists and prepend base64 prefix */}
+            {scatterPlotBase64 ? (
+              <img src={`data:image/png;base64,${scatterPlotBase64}`} alt="Scatter Plot" />
+            ) : (
+              <p>Scatter Plot not available (data missing).</p> // Handle missing data
+            )}
+          </div>
         </div>
 
-        <div className="plot-text">
-          <h1>Scatter Plot</h1>
-        </div>
-        <div className="plot-image">
-          {scatterPlot && <img src={scatterPlot} alt="Scatter Plot" />}
+        {/* UMAP Plot Section */}
+        <div className="plot-section">
+          <div className="plot-text">
+            <h1>UMAP Plot</h1>
+          </div>
+          <div className="plot-image">
+             {/* Check if data exists and prepend base64 prefix */}
+            {umapPlotBase64 ? (
+              <img src={`data:image/png;base64,${umapPlotBase64}`} alt="UMAP Plot" />
+            ) : (
+               <p>UMAP Plot not available (data missing).</p> // Handle missing data
+            )}
+          </div>
         </div>
 
-        {/* File upload section */}
-        <div>
-          <h2>Upload .h5ad File to Generate Marker Plot</h2>
-          <input type="file" onChange={handleFileChange} />
-          <button onClick={handleUpload} disabled={loading}>
-            {loading ? 'Uploading...' : 'Upload File'}
-          </button>
-
-          {/* Displaying the marker plot image */}
-          {error && <p style={{ color: 'red' }}>{error}</p>}
-          {markerPlotUrl && (
-            <div>
-              <h3>Marker Plot:</h3>
-              <img src={markerPlotUrl} alt="Marker Plot" style={{ maxWidth: '100%' }} />
-            </div>
-          )}
+        {/* Marker Plot Section */}
+        <div className="plot-section">
+          <div className="plot-text">
+            <h1>Marker Plot</h1>
+          </div>
+          <div className="plot-image-markers">
+            {/* Check if data exists and prepend base64 prefix */}
+            {markersPlotBase64 ? (
+              <img src={`data:image/png;base64,${markersPlotBase64}`} alt="Marker Plot" style={{ maxWidth: '100%' }} />
+            ) : (
+              <p>Marker Plot not available (data missing).</p> // Handle missing data
+            )}
+          </div>
         </div>
+
+        {/* Removed the redundant file upload section */}
       </div>
-    </div>
-  );
+   </div>
+ );
 }
 
 export default UmapPage;

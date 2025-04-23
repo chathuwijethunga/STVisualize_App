@@ -108,13 +108,14 @@ h1 {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: inline-block;
   max-width: 400px;
+  height: 125px;
   width: 100%;
 }
 
 .uploaded-file-box p {
   font-size: 1rem;
   font-weight: bold;
-  margin: 0;
+  margin: 20;
   padding-bottom: 10px;
   border-radius: 5px;
 }
@@ -131,7 +132,7 @@ h1 {
 }
 
 .uploaded-file-box button:hover {
-  background-color: rgb(13, 37, 71);
+  background-color: #dc3545;
 }
 
 button {
@@ -161,10 +162,84 @@ button:disabled {
   gap: 20px;
   justify-content: center;
   border-radius: 5px;
+  background-color: rgb(13, 37, 71);
 }
 
 .upload-buttons button {
   font-size: 1rem;
   padding: 12px 24px;
   border-radius: 5px;
+  background-color: rgb(13, 37, 71);
+}
+.upload-button-x {
+  font-size: 1rem;
+  padding: 12px 24px;
+  border-radius: 5px;
+  background-color: rgb(13, 37, 71);
+}
+.error-message {
+  color: #d9534f; /* Bootstrap red-ish */
+  font-size: 0.95rem;
+  font-weight: normal;
+  margin-top: 10px;
+}
+.loading-state {
+  font-size: 1rem;
+  color: #0047ab;
+  font-weight: 400;
+}
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin: 10px auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.uploaded-file-box {
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  min-width: 300px;
+}
+
+.loading-container {
+  margin-top: 20px;
+}
+
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.processing-text {
+  color: #0066cc;
+  font-size: 0.9rem;
+  margin-top: 10px;
 }

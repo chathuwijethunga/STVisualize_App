@@ -1,38 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './UmapPage.css'; // Import the CSS file
 import BgVideo from '../assets/background_video.mp4'; // Import the video file
 
 function UmapPage() {
-    // Getting the passed state from navigation
     const { state } = useLocation();
-    
-    const navigate = useNavigate(); // Hook for navigation
+    const navigate = useNavigate();
 
-    // **Access the state using the EXACT keys from the backend's JSON response**
-    const scatterPlotBase64 = state?.scatter_plot; // Use optional chaining and backend key
-    const umapPlotBase64 = state?.umap_plot;     // Use optional chaining and backend key
-    const markersPlotBase64 = state?.markers_plot; // Use optional chaining and backend key
-    // --- New: Access marker data and gene info ---
-    const topMarkersData = state?.top_markers; // Should be an array of objects (from DataFrame records)
-    const geneInfoData = state?.gene_info;     // Should be a dictionary { group: [gene_info_objects] }
+    const scatterPlotBase64 = state?.scatter_plot;
+    const umapPlotBase64 = state?.umap_plot;
+    const markersPlotBase64 = state?.markers_plot;
+    const topMarkersData = state?.top_markers;
+    const geneInfoData = state?.gene_info;
 
+    const [activeTab, setActiveTab] = useState(0); // Track active tab (0: Top Markers, 1: Gene Info)
+    const [selectedCluster, setSelectedCluster] = useState('0'); // Default to cluster 0
 
-    // Check if data was received. If not, redirect back to upload page.
-    // Keep the check primarily based on plot data, but you could add checks for marker data if desired.
-    // If plots are missing but marker data exists, the page will show marker data.
-    // If marker data is missing but plots exist, the page will show plots.
     useEffect(() => {
-        // Consider adding more robust data checks here if needed,
-        // but checking if *any* expected data is present might suffice.
         if (!state || (!scatterPlotBase64 && !umapPlotBase64 && !markersPlotBase64 && !topMarkersData && !geneInfoData)) {
-             console.warn("No analysis data received. Redirecting to upload page.");
-             navigate('/file-upload', { replace: true }); // *** Make sure '/file-upload' is your upload route ***
+            console.warn("No analysis data received. Redirecting to upload page.");
+            navigate('/file-upload', { replace: true });
         }
-    }, [state, navigate, scatterPlotBase64, umapPlotBase64, markersPlotBase64, topMarkersData, geneInfoData]); // Add all dependencies
+    }, [state, scatterPlotBase64, umapPlotBase64, markersPlotBase64, topMarkersData, geneInfoData, navigate]);
 
-    // Show a loading/redirecting message if no data is available yet
-    // This check is now slightly more comprehensive
     if (!state || (!scatterPlotBase64 && !umapPlotBase64 && !markersPlotBase64 && !topMarkersData && !geneInfoData)) {
         return (
             <div className="umap-page">
@@ -46,6 +36,9 @@ function UmapPage() {
         );
     }
 
+    // Filter top markers data based on the selected cluster
+    const filteredTopMarkers = topMarkersData ? topMarkersData.filter(marker => marker.group === selectedCluster) : [];
+
     return (
         <div className="umap-page">
             {/* Background Video */}
@@ -58,8 +51,7 @@ function UmapPage() {
                 <h2>Navigation</h2>
                 <ul>
                     <li><a href="/">Home</a></li>
-                    {/* Link back to the page where the file upload happens */}
-                    <li><a href="/file-upload">Upload New File</a></li> {/* *** Make sure '/file-upload' is your upload route *** */}
+                    <li><a href="/file-upload">Upload New File</a></li>
                 </ul>
             </div>
 
@@ -67,7 +59,6 @@ function UmapPage() {
             <div className="box-container">
                 {/* Scatter and UMAP in one row */}
                 <div className="plot-row">
-                    {/* Scatter Plot */}
                     <div className="plot-box">
                         <div className="plot-text">
                             <h1>Scatter Plot</h1>
@@ -88,7 +79,7 @@ function UmapPage() {
                         </div>
                         <div className="plot-image">
                             {umapPlotBase64 ? (
-                                <img src={`data:image:png;base64,${umapPlotBase64}`} alt="UMAP Plot" />
+                                <img src={`data:image/png;base64,${umapPlotBase64}`} alt="UMAP Plot" />
                             ) : (
                                 <p>UMAP Plot not available (data missing or error).</p>
                             )}
@@ -110,94 +101,149 @@ function UmapPage() {
                     </div>
                 </div>
 
-                {/* --- New: Marker Gene Data Section --- */}
-                {/* Only render this section if either top markers data or gene info data is available */}
+                {/* --- Marker Gene Analysis Results with Tabs and Cluster Input Box --- */}
                 {(topMarkersData && topMarkersData.length > 0) || (geneInfoData && Object.keys(geneInfoData).length > 0) ? (
-                    <div > {/* Add a CSS class for styling */}
-                        <h2>Marker Gene Analysis Results</h2>
+                    <div className='plot-box-des'>
+                        <h2 className='plot-headline-text'>Marker Gene Analysis Results</h2>
 
-                        {/* Section for Top Markers Table */}
-                        <div className="top-markers-section"> {/* Add a CSS class */}
-                            <h3>Top Markers per Group</h3>
-                            {topMarkersData && topMarkersData.length > 0 ? (
-                                <table className="marker-table"> {/* Add a CSS class */}
-                                    <thead>
-                                        <tr>
-                                            {/* Dynamically create headers from the keys of the first object in the array */}
-                                            {/* Add a check if topMarkersData[0] exists */}
-                                            {topMarkersData[0] && Object.keys(topMarkersData[0]).map(header => (
-                                                <th key={header}>{header}</th>
-                                            ))}
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {/* Loop through each marker object (row) */}
-                                        {topMarkersData.map((marker, index) => (
-                                            <tr key={index}> {/* Using index as key; better to use a unique ID if available */}
-                                                {/* Loop through each key/value pair in the marker object */}
-                                                {Object.keys(marker).map(key => (
-                                                    <td key={key}>{marker[key]}</td>
-                                                ))}
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            ) : (
-                                <p>No top marker data available.</p>
-                            )}
+                        {/* Cluster Input Box */}
+                        <div className="cluster-input-box">
+                            <label htmlFor="clusterInput">Select Cluster: </label>
+                            <input
+                                type="number"
+                                id="clusterInput"
+                                min="0"
+                                max="9"
+                                value={selectedCluster}
+                                onChange={(e) => {
+                                    const value = e.target.value;
+                                    if (/^[0-9]?$/.test(value)) { // Allow only digits 0-9 (adjust max if needed)
+                                        setSelectedCluster(value);
+                                    }
+                                }}
+                            />
                         </div>
 
-                        {/* Section for Gene Information */}
-                        <div className="gene-info-section"> {/* Add a CSS class */}
-                            <h3>Gene Information (MyGeneInfo)</h3>
-                            {geneInfoData && Object.keys(geneInfoData).length > 0 ? (
-                                // Loop through each group in the geneInfoData dictionary
-                                Object.keys(geneInfoData).map(group => (
-                                    <div key={group}>
-                                        <h4>Group {group}</h4>
-                                        {/* Check if the group has gene info results (is an array and not empty) */}
-                                        {geneInfoData[group] && Array.isArray(geneInfoData[group]) && geneInfoData[group].length > 0 ? (
-                                            <ul>
-                                                {/* Loop through each gene's info object in the group */}
-                                                {geneInfoData[group].map((gene, index) => (
-                                                    <li key={`${group}-${index}`}> {/* More unique key */}
-                                                        <strong>{gene.query || 'N/A'}:</strong> {/* Display the gene symbol (the query) */}
-                                                        {' '} {/* Add a space */}
-                                                        {gene.error ? ( // Check for error from backend query
-                                                            <em>Error fetching info: {gene.error}</em>
-                                                        ) : (
-                                                            <> {/* Use a fragment to group multiple elements */}
-                                                                Name: {gene.name || 'N/A'},
-                                                                Entrez: {gene.entrezgene || 'N/A'},
-                                                                UniProt: {gene.uniprot?.SwissProt || 'N/A'} {/* Use optional chaining */}
-                                                                {/* Display summary if available and not null/empty */}
-                                                                {gene.summary && <p>Summary: {gene.summary}</p>}
-                                                            </>
-                                                        )}
-                                                    </li>
+                        {/* Tab Navigation */}
+                        <ul className="nav nav-tabs" id="geneAnalysisTabs" role="tablist">
+                            <li className="nav-item" role="presentation">
+                                <button
+                                    className={`nav-link ${activeTab === 0 ? 'active' : ''}`}
+                                    onClick={() => setActiveTab(0)}
+                                    type="button"
+                                >
+                                    Top Markers
+                                </button>
+                            </li>
+                            <li className="nav-item" role="presentation">
+                                <button
+                                    className={`nav-link ${activeTab === 1 ? 'active' : ''}`}
+                                    onClick={() => setActiveTab(1)}
+                                    type="button"
+                                >
+                                    Gene Information
+                                </button>
+                            </li>
+                        </ul>
+
+                        {/* Tab Content */}
+                        <div className="tab-content mt-3" id="geneAnalysisTabsContent">
+                            {/* Top Markers Tab Content */}
+                            {activeTab === 0 && (
+                                <div className="tab-pane fade show active">
+                                    <h3>Top Markers for Cluster {selectedCluster}</h3>
+                                    {filteredTopMarkers && filteredTopMarkers.length > 0 ? (
+                                        <table className="marker-table">
+                                            <thead>
+                                                <tr>
+                                                    {filteredTopMarkers[0] && Object.keys(filteredTopMarkers[0]).map(header => (
+                                                        <th key={header}>{header}</th>
+                                                    ))}
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {filteredTopMarkers.map((marker, index) => (
+                                                    <tr key={index}>
+                                                        {Object.keys(marker).map(key => (
+                                                            <td key={key}>{marker[key]}</td>
+                                                        ))}
+                                                    </tr>
                                                 ))}
-                                            </ul>
-                                        ) : (
-                                            <p>No gene information available for Group {group}.</p>
-                                        )}
-                                    </div>
-                                ))
-                            ) : (
-                                <p>No detailed gene information available.</p>
+                                            </tbody>
+                                        </table>
+                                    ) : (
+                                        <p>No top marker data available for cluster {selectedCluster}.</p>
+                                    )}
+                                </div>
+                            )}
+
+                            {/* Gene Information Tab Content */}
+                            {activeTab === 1 && (
+                                <div className="tab-pane fade show active">
+                                    <h3>Gene Information for Cluster {selectedCluster}</h3>
+                                    {geneInfoData && geneInfoData[selectedCluster] && geneInfoData[selectedCluster].length > 0 ? (
+                                        <ul>
+                                            {geneInfoData[selectedCluster].map((gene, index) => (
+                                                <li key={`${selectedCluster}-${index}`}>
+                                                    <strong>{gene.query || 'N/A'}:</strong>
+                                                    {gene.error ? (
+                                                        <em>Error fetching info: {gene.error}</em>
+                                                    ) : (
+                                                        <>
+                                                            {gene.name && (
+                                                                <>
+                                                                    <br /><strong>Name:</strong> {gene.name}
+                                                                </>
+                                                            )}
+                                                            {gene.summary && (
+                                                                <>
+                                                                    <br /><em>{gene.summary}</em>
+                                                                </>
+                                                            )}
+                                                            {gene.entrezgene && (
+                                                                <>
+                                                                    <br /><strong>Entrez ID:</strong>
+                                                                    <a
+                                                                        href={`https://www.ncbi.nlm.nih.gov/gene/${gene.entrezgene}`}
+                                                                        target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                    >
+                                                                        {gene.entrezgene}
+                                                                    </a>
+                                                                </>
+                                                            )}
+                                                            {gene.uniprot?.SwissProt && (
+                                                                <>
+                                                                    <br /><strong>UniProt ID (Swiss-Prot):</strong>
+                                                                    <a
+                                                                        href={`https://www.uniprot.org/uniprot/${gene.uniprot.SwissProt}`}
+                                                                        target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                    >
+                                                                        {gene.uniprot.SwissProt}
+                                                                    </a>
+                                                                </>
+                                                            )}
+                                                        </>
+                                                    )}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <p>No detailed gene information available for cluster {selectedCluster}.</p>
+                                    )}
+                                </div>
                             )}
                         </div>
                     </div>
                 ) : (
-                    // Optional: Display a message if no marker data was available at all
                     <div className="marker-data-container">
-                         <h2>Marker Gene Analysis Results</h2>
-                         <p>Marker gene analysis results not available (missing data or error).</p>
+                        <h2>Marker Gene Analysis Results</h2>
+                        <p>Marker gene analysis results not available (missing data or error).</p>
                     </div>
                 )}
-
-            </div> {/* End of box-container */}
-
-        </div> // End of umap-page
+            </div>
+        </div>
     );
 }
 

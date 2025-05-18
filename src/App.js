@@ -5,6 +5,10 @@ import FileUpload from './components/FileUpload';
 import UmapPage from './components/UmapPage';
 import Cancercare from './components/CancerCare';
 import MarkerPage from './components/MarkerPage';  
+import Factsheets from './components/Factsheets';
+// import Viewer from './components/Viewer';
+
+
 
 function App() {
   return (
@@ -16,6 +20,9 @@ function App() {
           <Route path="/umap" element={<UmapPage />} />  {/* UMAP Page */}
           <Route path="/care-guidelines" element={<Cancercare />} />
           <Route path="/markers" element={<MarkerPage />} />  {/* New Route for Markers */}
+          <Route path="/factsheets" element={<Factsheets />}/>
+          {/* <Route path="/factsheets/:pdfName" element={<Viewer />} /> */}
+
         </Routes>
       </div>
     </Router>

@@ -13,8 +13,11 @@ function HomeScreen() {
   const navigate = useNavigate();
 
   const handleLearnMore = () => {
-    // Navigate to the CareGuidelines component
     navigate('/care-guidelines');
+  };
+
+  const handleFactSheet = () => {
+    navigate('/factsheets');
   };
 
   return (
@@ -72,15 +75,23 @@ function HomeScreen() {
           </div>
         </section>
 
+        {/* Cancer facts Section */}
+        <section className="cancer-care-guidelines">
+          <h2 className="section-title">Fact sheets</h2>
+          <p className="section-text">
+            These fact sheets, sourced from <a href="https://www.nccp.health.gov.lk/en" target="_blank" rel="noopener noreferrer">The National Cancer Control Programme by Ministry of Health, Sri Lanka</a>, provide crucial statistical overviews of different cancer types within the country. They are important for understanding the prevalence and trends of cancer, which aids in public health planning and resource allocation.
+          </p>
+          <button className="project-button" onClick={handleFactSheet}>Fact Sheets</button>
+        </section>
+
         {/* Cancer Care Guideline Section */}
         <section className="cancer-care-guidelines">
           <h2 className="section-title">General Guideline for Cancer Care</h2>
           <p className="section-text">
             Cancer care is a multi-step process involving diagnosis, treatment, rehabilitation, and follow-up. It's essential to have a holistic approach to address each aspect of a patient’s journey, including emotional, physical, and mental health.
           </p>
-          <button className="learn-more-button" onClick={handleLearnMore}>
-            Learn More
-          </button>
+          <button className="project-button" onClick={handleLearnMore}>Learn More</button>
+
         </section>
 
         {/* Our Projects Section */}

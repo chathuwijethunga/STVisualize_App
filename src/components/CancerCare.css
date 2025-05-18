@@ -147,3 +147,27 @@ button:hover {
   margin-bottom: 20px; /* Space between the icon and the text */
   box-shadow: none; /* Remove shadow from icons */
 }
+/* Add a blue border to the top of each section */
+.collapsible-header {
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 2px solid #0047ab; /* Blue line between sections */
+  margin-top: 10px; /* Margin to separate from the previous content */
+}
+
+/* Optional: Customize the expanded content's styling */
+.subsections > section {
+  /* padding: 5px; */
+  background-color: #f9f9f9;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+/* To give the line a bit of space between the next section */
+.subsections > section + section {
+  margin-top: 5px; /* Adjust as needed */
+}

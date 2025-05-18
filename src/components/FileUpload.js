@@ -131,7 +131,13 @@ function FileUpload() {
             <video autoPlay loop muted className="bg-vid">
                 <source src={BgVideo} type="video/mp4" />
             </video>
-
+            {/* Header Navigation */}
+            <div className="header">
+                <h2>Navigation</h2>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </div>
             {/* File Upload Container */}
             <div className="file-upload-container">
                 <div className='upload-box'>
